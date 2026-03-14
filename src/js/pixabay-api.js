@@ -1,22 +1,21 @@
-import { refs } from "../main";
+import axios from "axios";
 
-refs.input.addEventListener('submit', (e) => {
-  e.preventDefault();
+const BASE_URL = "https://pixabay.com/api/";
+const API_KEY = "55026716-4dbe0fcfc8dcb0cc6e29137c8";
 
-  const query = new FormData(e.target);
+export function getImagesByQuery(query) {
+  const params = {
+    key: API_KEY,
+    q: query,
+    image_type: "photo",
+    orientation: "horizontal",
+    safesearch: true,
+  };
 
-  getImagesByQuery(query);
-});
-
-const getImagesByQuery = (query) => {
-  axios({
-    method: "get",
-    url: "https://jsonplaceholder.typicode.com/users"
-  })
-  .then(res => {
-    console.log(res.data);
-  })
-  .catch(err => {
-    console.log(err);
-  });
-};
+  return axios
+    .get(BASE_URL, { params })
+    .then(response => response.data)
+    .catch(error => {
+      throw error;
+    });
+}
