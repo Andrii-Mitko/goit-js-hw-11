@@ -7,9 +7,9 @@ export function getImagesByQuery(query) {
   const params = {
     key: API_KEY,
     q: query,
+    lang: 'ru',
     image_type: "photo",
     orientation: "horizontal",
-    safesearch: true,
   };
 
   return axios
